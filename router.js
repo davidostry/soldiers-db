@@ -4,7 +4,7 @@ import {validateBody} from './middleware.js'
 
 const router = express.Router()
 
-router.post("/", createSoldier)
+router.post("/",validateBody, createSoldier)
 
 router.get("/", showSoldiers)
 
