@@ -20,7 +20,6 @@ export async function createSoldier(soldier) {
     return rows[0];
 }
 export async function getSoldiersFromDB(filters = {}) {
-    console.log(filters);
 
     let query = "SELECT * FROM soldiers WHERE 1=1";
     let values = [];
@@ -48,7 +47,7 @@ export async function getSoldiersFromDB(filters = {}) {
 
 export async function getSoldierById(id) {
     const [rows] = await pool.execute("select * from soldiers where id = ?", [id])
-    console.log(rows);
+    
     return rows;
 }
 
@@ -67,7 +66,7 @@ export async function updateSoldier(id, soldier) {
         return null;
     }
     const [rows] = await pool.execute("select * from soldiers where id = ?", [id])
-    console.log(rows);
+    
     return rows;
 }
 

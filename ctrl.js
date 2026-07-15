@@ -27,7 +27,7 @@ export async function getOneSoldier(req, res, next) {
         const { id } = req.params
 
         const result = await getSoldier(id)
-        if (!result) return res.status(404).json({ message: " soldier not found" })
+        if (!result) return res.status(404).json({ message: "soldier not found" })
         return res.json({ data: result })
 
     } catch (e) {

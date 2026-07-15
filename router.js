@@ -1,6 +1,6 @@
 import express from 'express'
 import {showSoldiers, createSoldier, getOneSoldier, updateSoldier, deleteSoldier, updateStatus} from './ctrl.js'
-import {validateBody} from './middleware.js'
+import {validateBody, validId} from './middleware.js'
 
 const router = express.Router()
 
@@ -8,12 +8,12 @@ router.post("/",validateBody, createSoldier)
 
 router.get("/", showSoldiers)
 
-router.get("/:id", getOneSoldier)
+router.get("/:id",validId, getOneSoldier)
 
-router.put("/:id", updateSoldier)
+router.put("/:id",validId, validateBody, updateSoldier)
 
-router.delete("/:id", deleteSoldier)
+router.delete("/:id",validId, deleteSoldier)
 
-router.patch("/:id/status", updateStatus)
+router.patch("/:id/status",validId, updateStatus)
 
 export default router

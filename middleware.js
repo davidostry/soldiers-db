@@ -14,3 +14,11 @@ export function validateBody(req, res, next) {
 
     next()
 }
+
+export function validId(req, res, next){
+   const { id } = req.params
+   if(!id || isNaN(+id) || +id <= 0){
+    return res.status(400).json({message: "valid id is missing"})
+   }
+   next()
+}
