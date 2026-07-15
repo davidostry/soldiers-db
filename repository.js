@@ -21,7 +21,7 @@ export async function createSoldier(soldier) {
 }
 export async function getSoldiersFromDB(filters = {}) {
     console.log(filters);
-    
+
     let query = "SELECT * FROM soldiers WHERE 1=1";
     let values = [];
 
@@ -46,10 +46,41 @@ export async function getSoldiersFromDB(filters = {}) {
 }
 
 
-export async function getSoldierById(id) { }
+export async function getSoldierById(id) {
+    const [rows] = await pool.execute("select * from soldiers where id = ?", [id])
+    console.log(rows);
+    return rows;
+}
 
 
 
-export async function updateSoldier(id, soldier) { }
+export async function updateSoldier(id, soldier) {
+    const [result] = await pool.execute("update soldiers set name = ?, role = ?, military_rank = ?, unit_name = ?, age = ?, service_status = ? where id = ?", [
+        soldier.name,
+        soldier.role,
+        soldier.military_rank,
+        soldier.unit_name,
+        soldier.age,
+        soldier.service_status,
+        id])
+    if (result.affectedRows == 0) {
+        return null;
+    }
+    const [rows] = await pool.execute("select * from soldiers where id = ?", [id])
+    console.log(rows);
+    return rows;
+}
 
-export async function deleteSoldier(id) { }
+export async function deleteSoldier(id) {
+    const [result] = await pool.execute("delete from soldiers where id = ?", [id])
+
+    
+    if (result.affectedRows == 0) {
+        return null;
+    }
+    return true
+}
+
+export async function apdateStatus(id){
+    
+}

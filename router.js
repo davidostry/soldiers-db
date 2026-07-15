@@ -1,24 +1,19 @@
 import express from 'express'
-import {showSoldiers, createSoldier} from './ctrl.js'
+import {showSoldiers, createSoldier, getOneSoldier, updateSoldier, deleteSoldier} from './ctrl.js'
 import {validateBody} from './middleware.js'
 
 const router = express.Router()
 
-router.post("/", (req, res, next) => {
-    console.log("route reached");
-    next();
-}, createSoldier);
-
-router.post("/", validateBody, createSoldier)
+router.post("/", createSoldier)
 
 router.get("/", showSoldiers)
 
-// router.get("/:id")
+router.get("/:id", getOneSoldier)
 
-// router.put("/:id")
+router.put("/:id", updateSoldier)
 
-// delete("/:id")
+router.delete("/:id", deleteSoldier)
 
-// patch("/:id/status")
+// router.patch("/:id/status")
 
 export default router

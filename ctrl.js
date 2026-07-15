@@ -1,10 +1,10 @@
-import { getSoldiers, addSoldier } from './service.js'
+import { getSoldiers, addSoldier, getSoldier, updateDetailes ,deleteById} from './service.js'
 
 export async function showSoldiers(req, res, next) {
     try {
         const filters = req.query;
         const result = await getSoldiers(filters);
-        if (!result) return res.status(400).json({message: "failed to get soldieres"})
+        if (!result) return res.status(400).json({ message: "failed to get soldieres" })
         return res.json({ data: result });
     } catch (e) {
         next(e);
@@ -15,9 +15,49 @@ export async function createSoldier(req, res, next) {
     try {
         const soldier = req.body
         const result = await addSoldier(soldier)
-        if (!result) return res.status(400).json({message: "failed to create soldier"})
+        if (!result) return res.status(400).json({ message: "failed to create soldier" })
         return res.status(201).json({ data: result })
     } catch (e) {
         next(e)
     }
+}
+
+export async function getOneSoldier(req, res, next) {
+    try {
+        const { id } = req.params
+
+        const result = await getSoldier(id)
+        if (!result) return res.status(400).json({ message: "failed to create soldier" })
+        return res.json({ data: result })
+
+    } catch (e) {
+        next(e)
+    }
+}
+
+export async function updateSoldier(req, res, next) {
+    try {
+        const soldier = req.body
+        const { id } = req.params
+        console.log(soldier, id);
+        
+        const result = await updateDetailes(id, soldier)
+        if (!result) return res.status(400).json({message: "failed to update"})
+        return res.status(201).json({data: result})
+    } catch (e) {
+        next(e)
+    }
+}
+
+export async function deleteSoldier(req, res, next){
+    try{const { id } = req.params
+    console.log(id);
+    
+    const result = await deleteById(id)
+    
+    if (!result) return res.status(400).json({message: "failed to delete"})
+    return res.sendStatus(204)
+}catch(e){
+    next(e)
+}
 }
