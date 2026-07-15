@@ -1,4 +1,4 @@
-import { getSoldiers, addSoldier, getSoldier, updateDetailes ,deleteById} from './service.js'
+import { getSoldiers, addSoldier, getSoldier, updateDetailes ,deleteById ,changeStatus } from './service.js'
 
 export async function showSoldiers(req, res, next) {
     try {
@@ -60,4 +60,14 @@ export async function deleteSoldier(req, res, next){
 }catch(e){
     next(e)
 }
+}
+
+export async function updateStatus(req, res, next){
+    const {id} = req.params
+    const { service_status } = req.body
+    console.log(id, service_status);
+    
+    const result = await changeStatus(id, service_status)
+    if (!result)res.status(400).json({message: "failed to update status"})
+    return res.status(201).json({data: result})
 }

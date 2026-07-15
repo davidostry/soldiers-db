@@ -1,5 +1,5 @@
 import express from 'express'
-import {showSoldiers, createSoldier, getOneSoldier, updateSoldier, deleteSoldier} from './ctrl.js'
+import {showSoldiers, createSoldier, getOneSoldier, updateSoldier, deleteSoldier, updateStatus} from './ctrl.js'
 import {validateBody} from './middleware.js'
 
 const router = express.Router()
@@ -14,6 +14,6 @@ router.put("/:id", updateSoldier)
 
 router.delete("/:id", deleteSoldier)
 
-// router.patch("/:id/status")
+router.patch("/:id/status", updateStatus)
 
 export default router

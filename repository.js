@@ -74,13 +74,21 @@ export async function updateSoldier(id, soldier) {
 export async function deleteSoldier(id) {
     const [result] = await pool.execute("delete from soldiers where id = ?", [id])
 
-    
+
     if (result.affectedRows == 0) {
         return null;
     }
     return true
 }
 
-export async function apdateStatus(id){
+export async function updateStatus(id, status) {
+    console.log(id, status);
     
+    const [result] = await pool.execute("update soldiers set service_status = ? where id = ?", [status, id])
+    if (result.affectedRows == 0) {
+        return null;
+    }
+    const [rows] = await pool.execute("select * from soldiers where id = ?", [id])
+    return rows;
+
 }

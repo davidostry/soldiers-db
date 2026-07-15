@@ -1,4 +1,4 @@
-import {getSoldiersFromDB, createSoldier, getSoldierById, updateSoldier, deleteSoldier} from './repository.js'
+import {getSoldiersFromDB, createSoldier, getSoldierById, updateSoldier, deleteSoldier, updateStatus} from './repository.js'
 
 
 export async function addSoldier(soldier){
@@ -22,4 +22,8 @@ export async function updateDetailes(id, soldier){
 
 export async function deleteById(id){
     return await deleteSoldier(id)
+}
+
+export async function changeStatus(id, status){
+    return await updateStatus(id, status)
 }
